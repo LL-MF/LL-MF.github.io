@@ -10,13 +10,11 @@
   <meta name="generator" content="hexo-theme-yilia-plus">
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
   
-  <meta name="description" content="在渗透测试的过程中，经常会遇到各种各样的WAF，WAF会将用户提交的符合规则库中的恶意数据给阻断，这对渗透测试带来了挑战。要想对抗WAF来继续对目标进行渗透，就必须先了解WAF的类型和原理才能于其规则进行对抗。">
-<meta name="keywords" content="Web,Bypass">
+  <meta name="keywords" content="Web,Bypass">
 <meta property="og:type" content="article">
 <meta property="og:title" content="对抗WAF继续渗透">
 <meta property="og:url" content="http://ll-mf.github.io/2019-10-12-Bypass.html">
 <meta property="og:site_name" content="LLMF&#39;s Blog">
-<meta property="og:description" content="在渗透测试的过程中，经常会遇到各种各样的WAF，WAF会将用户提交的符合规则库中的恶意数据给阻断，这对渗透测试带来了挑战。要想对抗WAF来继续对目标进行渗透，就必须先了解WAF的类型和原理才能于其规则进行对抗。">
 <meta property="og:locale" content="zh-CN">
 <meta property="og:image" content="http://ll-mf.github.io/img/hexo-2019-10-12-17-29-50.png">
 <meta property="og:image" content="http://ll-mf.github.io/img/hexo-2019-10-12-15-30-10.png">
@@ -31,10 +29,9 @@
 <meta property="og:image" content="http://ll-mf.github.io/img/hexo-2019-10-14-11-11-19.png">
 <meta property="og:image" content="http://ll-mf.github.io/img/hexo-2019-10-14-15-15-17.png">
 <meta property="og:image" content="http://ll-mf.github.io/img/hexo-2019-10-14-15-55-42.png">
-<meta property="og:updated_time" content="2019-10-15T07:00:20.502Z">
+<meta property="og:updated_time" content="2019-10-15T09:05:34.162Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="对抗WAF继续渗透">
-<meta name="twitter:description" content="在渗透测试的过程中，经常会遇到各种各样的WAF，WAF会将用户提交的符合规则库中的恶意数据给阻断，这对渗透测试带来了挑战。要想对抗WAF来继续对目标进行渗透，就必须先了解WAF的类型和原理才能于其规则进行对抗。">
 <meta name="twitter:image" content="http://ll-mf.github.io/img/hexo-2019-10-12-17-29-50.png">
   
     <link rel="alternative" href="/atom.xml" title="LLMF&#39;s Blog" type="application/atom+xml">
@@ -256,7 +253,7 @@
 <div id="toc-article" class="toc-article">
     <span id="toc-close" class="toc-close" title="隐藏导航" onclick="showBtn();">×</span>
   <strong class="toc-title">文章目录</strong>
-         <ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#对抗软WAF"><span class="toc-number">1.</span> <span class="toc-text">对抗软WAF</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#绕过安全狗扫描目录"><span class="toc-number">1.1.</span> <span class="toc-text">绕过安全狗扫描目录</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#绕过安全狗继续注入"><span class="toc-number">1.2.</span> <span class="toc-text">绕过安全狗继续注入</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#1-SQL注释符-绕过"><span class="toc-number">1.2.1.</span> <span class="toc-text">1.SQL注释符/**/绕过</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#2-FUZZ绕过并配合sqlmap实现自动化绕过注入"><span class="toc-number">1.2.2.</span> <span class="toc-text">2.FUZZ绕过并配合sqlmap实现自动化绕过注入</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#3-分块传输绕过"><span class="toc-number">1.2.3.</span> <span class="toc-text">3.分块传输绕过</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#4-静态文件绕过"><span class="toc-number">1.2.4.</span> <span class="toc-text">4.静态文件绕过</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#5-具体bypass字符串替换"><span class="toc-number">1.2.5.</span> <span class="toc-text">5.具体bypass字符串替换</span></a></li></ol></li></ol></li><li class="toc-item toc-level-1"><a class="toc-link" href="#对抗云WAF"><span class="toc-number">2.</span> <span class="toc-text">对抗云WAF</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#验证是否存在CND"><span class="toc-number">2.1.</span> <span class="toc-text">验证是否存在CND</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#绕过CDN查找真实IP"><span class="toc-number">2.2.</span> <span class="toc-text">绕过CDN查找真实IP</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#1-查询历史DNS记录"><span class="toc-number">2.2.1.</span> <span class="toc-text">1.查询历史DNS记录</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#2-SMTP发送邮件泄露原站IP"><span class="toc-number">2.2.2.</span> <span class="toc-text">2.SMTP发送邮件泄露原站IP</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#3-查询子域名"><span class="toc-number">2.2.3.</span> <span class="toc-text">3.查询子域名</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#4-网站漏洞利用"><span class="toc-number">2.2.4.</span> <span class="toc-text">4.网站漏洞利用</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#5-利用国外主机解析域名"><span class="toc-number">2.2.5.</span> <span class="toc-text">5.利用国外主机解析域名</span></a></li></ol></li></ol></li></ol>
+         <ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#0x01-对抗软WAF"><span class="toc-number">1.</span> <span class="toc-text">0x01 对抗软WAF</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#绕过安全狗扫描目录"><span class="toc-number">1.1.</span> <span class="toc-text">绕过安全狗扫描目录</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#绕过安全狗继续注入"><span class="toc-number">1.2.</span> <span class="toc-text">绕过安全狗继续注入</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#1-SQL注释符-绕过"><span class="toc-number">1.2.1.</span> <span class="toc-text">1.SQL注释符/**/绕过</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#2-FUZZ绕过并配合sqlmap实现自动化绕过注入"><span class="toc-number">1.2.2.</span> <span class="toc-text">2.FUZZ绕过并配合sqlmap实现自动化绕过注入</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#3-分块传输绕过"><span class="toc-number">1.2.3.</span> <span class="toc-text">3.分块传输绕过</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#4-静态文件绕过"><span class="toc-number">1.2.4.</span> <span class="toc-text">4.静态文件绕过</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#5-具体bypass字符串替换"><span class="toc-number">1.2.5.</span> <span class="toc-text">5.具体bypass字符串替换</span></a></li></ol></li></ol></li><li class="toc-item toc-level-1"><a class="toc-link" href="#0x02-对抗云WAF"><span class="toc-number">2.</span> <span class="toc-text">0x02 对抗云WAF</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#验证是否存在CND"><span class="toc-number">2.1.</span> <span class="toc-text">验证是否存在CND</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#绕过CDN查找真实IP"><span class="toc-number">2.2.</span> <span class="toc-text">绕过CDN查找真实IP</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#1-查询历史DNS记录"><span class="toc-number">2.2.1.</span> <span class="toc-text">1.查询历史DNS记录</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#2-SMTP发送邮件泄露原站IP"><span class="toc-number">2.2.2.</span> <span class="toc-text">2.SMTP发送邮件泄露原站IP</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#3-查询子域名"><span class="toc-number">2.2.3.</span> <span class="toc-text">3.查询子域名</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#4-网站漏洞利用"><span class="toc-number">2.2.4.</span> <span class="toc-text">4.网站漏洞利用</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#5-利用国外主机解析域名"><span class="toc-number">2.2.5.</span> <span class="toc-text">5.利用国外主机解析域名</span></a></li></ol></li></ol></li></ol>
        </div>
  <script type="text/javascript">
 function showToc(){
@@ -276,10 +273,9 @@ function showBtn(){
 
   <div class="article-entry" itemprop="articleBody">
     
-    <p>在渗透测试的过程中，经常会遇到各种各样的WAF，WAF会将用户提交的符合规则库中的恶意数据给阻断，这对渗透测试带来了挑战。要想对抗WAF来继续对目标进行渗透，就必须先了解WAF的类型和原理才能于其规则进行对抗。<br><img src="../img/hexo-2019-10-12-17-29-50.png" alt>  </p>
+    <p><img src="../img/hexo-2019-10-12-17-29-50.png" alt>  </p>
 <a id="more"></a>
-
-<p>WAF大致分为三类：  </p>
+<p>在渗透测试的过程中，经常会遇到各种各样的WAF，WAF会将用户提交的符合规则库中的恶意数据给阻断，这对渗透测试带来了挑战。要想对抗WAF来继续对目标进行渗透，就必须先了解WAF的类型和原理才能于其规则进行对抗。<br>WAF大致分为三类：  </p>
 <blockquote>
 <p><strong>硬件Web防火墙</strong>：就是常说的硬WAF，通常的安装方式是将Waf串行部署在Web服务器前端，用于检测、阻断异常流量。</p>
 </blockquote>
@@ -290,7 +286,7 @@ function showBtn(){
 <p><strong>云WAF</strong>：是近年来随着云计算的推动衍生出来的新产品，云WAF，也称WEB应用防火墙的云模式，这种模式让用户不需要在自己的网络中安装软件程序或部署硬件设备，就可以对网站实施安全防护，它的主要实现方式是利用DNS技术，通过移交域名解析权来实现安全防护。用户的请求首先发送到云端节点进行检测，如存在异常请求则进行拦截否则将请求转发至真实服务器。</p>
 </blockquote>
 <p>由于硬件WAF购买价格昂贵，受众数量较少，因此通常遇到的都是部署在服务器上的软WAF和部署在云服务器上的云WAF，因此这里只讨论存在软WAF和云WAF的情况。</p>
-<h1 id="对抗软WAF"><a href="#对抗软WAF" class="headerlink" title="对抗软WAF"></a>对抗软WAF</h1><p>软WAF比较有代表性的就是安全狗了，因此这里以安全狗为例，其余软WAF均可以使用大致相同的思路——<strong>Fuzz</strong> 来进行绕过。</p>
+<h1 id="0x01-对抗软WAF"><a href="#0x01-对抗软WAF" class="headerlink" title="0x01 对抗软WAF"></a>0x01 对抗软WAF</h1><p>软WAF比较有代表性的就是安全狗了，因此这里以安全狗为例，其余软WAF均可以使用大致相同的思路——<strong>Fuzz</strong> 来进行绕过。</p>
 <h2 id="绕过安全狗扫描目录"><a href="#绕过安全狗扫描目录" class="headerlink" title="绕过安全狗扫描目录"></a>绕过安全狗扫描目录</h2><p>在服务器端未开启CC防御时，可采用自定义User-Agent来对站点进行目录扫描，这里使用<strong>DirBuster</strong>来将User-Agent设置成百度爬虫的User-Agent头<br><code>User-Agent: Mozilla/5.0 (compatible; Baiduspider/2.0; +http://www.baidu.com/search/spider.html)</code>  </p>
 <img src="../img/hexo-2019-10-12-15-30-10.png" height="330" width="495">  
 
@@ -335,7 +331,7 @@ function showBtn(){
 
 <hr>
 <p><strong>2019/10/14更新</strong> </p>
-<h1 id="对抗云WAF"><a href="#对抗云WAF" class="headerlink" title="对抗云WAF"></a>对抗云WAF</h1><p>云WAF的工作原理是利用DNS技术，通过移交域名解析权来实现安全防护。用户的请求首先发送到云端节点进行检测，如存在异常请求则进行拦截否则将请求转发至真实服务器。类似的，CDN也有相应的功能。比较常遇到的有：创宇加速乐、云盾、百度云加速等。</p>
+<h1 id="0x02-对抗云WAF"><a href="#0x02-对抗云WAF" class="headerlink" title="0x02 对抗云WAF"></a>0x02 对抗云WAF</h1><p>云WAF的工作原理是利用DNS技术，通过移交域名解析权来实现安全防护。用户的请求首先发送到云端节点进行检测，如存在异常请求则进行拦截否则将请求转发至真实服务器。类似的，CDN也有相应的功能。比较常遇到的有：创宇加速乐、云盾、百度云加速等。</p>
 <p>因此，我们主要努力的方向是找到服务器的真实IP，从而对云WAF和CDN来进行绕过。  </p>
 <h2 id="验证是否存在CND"><a href="#验证是否存在CND" class="headerlink" title="验证是否存在CND"></a>验证是否存在CND</h2><p><strong>方法1：</strong><br>使用多地ping服务，查看解析的IP地址是否为同一个IP地址，如果不唯一很大概率是使用了CDN，也可以查询多个解析的IP地址的归属来进行判断。<br>多地ping的网站有：<br><a href="http://ping.chinaz.com/" target="_blank" rel="noopener">http://ping.chinaz.com/</a><br><a href="https://ping.aizhan.com/" target="_blank" rel="noopener">https://ping.aizhan.com/</a></p>
 <p><strong>方法2:</strong><br>使用nslookup进行检测，原理和上面的方法是一样的，如果返回域名解析对应多个IP地址多半是使用了CDN。有CDN的示例：<br><img src="../img/hexo-2019-10-14-11-11-19.png" alt></p>
@@ -640,6 +636,10 @@ function showBtn(){
              
               <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color2">Bypass</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color4">XXE</a>
               </li>
             
             <div class="clearfix"></div>
