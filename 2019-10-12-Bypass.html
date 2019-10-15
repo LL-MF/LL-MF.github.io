@@ -29,7 +29,9 @@
 <meta property="og:image" content="http://ll-mf.github.io/img/hexo-2019-10-12-16-29-23.png">
 <meta property="og:image" content="http://ll-mf.github.io/img/hexo-2019-10-12-16-31-41.png">
 <meta property="og:image" content="http://ll-mf.github.io/img/hexo-2019-10-14-11-11-19.png">
-<meta property="og:updated_time" content="2019-10-14T06:18:47.407Z">
+<meta property="og:image" content="http://ll-mf.github.io/img/hexo-2019-10-14-15-15-17.png">
+<meta property="og:image" content="http://ll-mf.github.io/img/hexo-2019-10-14-15-55-42.png">
+<meta property="og:updated_time" content="2019-10-15T07:00:20.502Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="对抗WAF继续渗透">
 <meta name="twitter:description" content="在渗透测试的过程中，经常会遇到各种各样的WAF，WAF会将用户提交的符合规则库中的恶意数据给阻断，这对渗透测试带来了挑战。要想对抗WAF来继续对目标进行渗透，就必须先了解WAF的类型和原理才能于其规则进行对抗。">
@@ -227,7 +229,7 @@
       <!-- 百度字体平台:http://fontstore.baidu.com/static/editor/index.html -->
       <i class="icon-statistics"></i>
       <span class="post-meta-item-text"> 字数统计:</span>
-      <span class="post-count">1.7k字</span>
+      <span class="post-count">2.3k字</span>
     </span>
   </span>
 
@@ -236,7 +238,7 @@
     <span class="post-meta-item-icon">
       <i class="icon-book icon"></i>
       <span class="post-meta-item-text"> 阅读时长≈</span>
-      <span class="post-count">7分</span>
+      <span class="post-count">9分</span>
     </span>
   </span>
 </div>
@@ -254,7 +256,7 @@
 <div id="toc-article" class="toc-article">
     <span id="toc-close" class="toc-close" title="隐藏导航" onclick="showBtn();">×</span>
   <strong class="toc-title">文章目录</strong>
-         <ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#对抗软WAF"><span class="toc-number">1.</span> <span class="toc-text">对抗软WAF</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#绕过安全狗扫描目录"><span class="toc-number">1.1.</span> <span class="toc-text">绕过安全狗扫描目录</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#绕过安全狗继续注入"><span class="toc-number">1.2.</span> <span class="toc-text">绕过安全狗继续注入</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#1-SQL注释符-绕过"><span class="toc-number">1.2.1.</span> <span class="toc-text">1.SQL注释符/**/绕过</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#2-FUZZ绕过并配合sqlmap实现自动化绕过注入"><span class="toc-number">1.2.2.</span> <span class="toc-text">2.FUZZ绕过并配合sqlmap实现自动化绕过注入</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#3-分块传输绕过"><span class="toc-number">1.2.3.</span> <span class="toc-text">3.分块传输绕过</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#4-静态文件绕过"><span class="toc-number">1.2.4.</span> <span class="toc-text">4.静态文件绕过</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#5-具体bypass字符串替换"><span class="toc-number">1.2.5.</span> <span class="toc-text">5.具体bypass字符串替换</span></a></li></ol></li></ol></li><li class="toc-item toc-level-1"><a class="toc-link" href="#对抗云WAF"><span class="toc-number">2.</span> <span class="toc-text">对抗云WAF</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#验证是否存在CND"><span class="toc-number">2.1.</span> <span class="toc-text">验证是否存在CND</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#绕过CDN查找真实IP"><span class="toc-number">2.2.</span> <span class="toc-text">绕过CDN查找真实IP</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#1-查询历史DNS记录"><span class="toc-number">2.2.1.</span> <span class="toc-text">1.查询历史DNS记录</span></a></li></ol></li></ol></li></ol>
+         <ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#对抗软WAF"><span class="toc-number">1.</span> <span class="toc-text">对抗软WAF</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#绕过安全狗扫描目录"><span class="toc-number">1.1.</span> <span class="toc-text">绕过安全狗扫描目录</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#绕过安全狗继续注入"><span class="toc-number">1.2.</span> <span class="toc-text">绕过安全狗继续注入</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#1-SQL注释符-绕过"><span class="toc-number">1.2.1.</span> <span class="toc-text">1.SQL注释符/**/绕过</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#2-FUZZ绕过并配合sqlmap实现自动化绕过注入"><span class="toc-number">1.2.2.</span> <span class="toc-text">2.FUZZ绕过并配合sqlmap实现自动化绕过注入</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#3-分块传输绕过"><span class="toc-number">1.2.3.</span> <span class="toc-text">3.分块传输绕过</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#4-静态文件绕过"><span class="toc-number">1.2.4.</span> <span class="toc-text">4.静态文件绕过</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#5-具体bypass字符串替换"><span class="toc-number">1.2.5.</span> <span class="toc-text">5.具体bypass字符串替换</span></a></li></ol></li></ol></li><li class="toc-item toc-level-1"><a class="toc-link" href="#对抗云WAF"><span class="toc-number">2.</span> <span class="toc-text">对抗云WAF</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#验证是否存在CND"><span class="toc-number">2.1.</span> <span class="toc-text">验证是否存在CND</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#绕过CDN查找真实IP"><span class="toc-number">2.2.</span> <span class="toc-text">绕过CDN查找真实IP</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#1-查询历史DNS记录"><span class="toc-number">2.2.1.</span> <span class="toc-text">1.查询历史DNS记录</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#2-SMTP发送邮件泄露原站IP"><span class="toc-number">2.2.2.</span> <span class="toc-text">2.SMTP发送邮件泄露原站IP</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#3-查询子域名"><span class="toc-number">2.2.3.</span> <span class="toc-text">3.查询子域名</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#4-网站漏洞利用"><span class="toc-number">2.2.4.</span> <span class="toc-text">4.网站漏洞利用</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#5-利用国外主机解析域名"><span class="toc-number">2.2.5.</span> <span class="toc-text">5.利用国外主机解析域名</span></a></li></ol></li></ol></li></ol>
        </div>
  <script type="text/javascript">
 function showToc(){
@@ -331,12 +333,24 @@ function showBtn(){
     </tr>
 </table>
 
-<p>—2019/10/14更新—</p>
+<hr>
+<p><strong>2019/10/14更新</strong> </p>
 <h1 id="对抗云WAF"><a href="#对抗云WAF" class="headerlink" title="对抗云WAF"></a>对抗云WAF</h1><p>云WAF的工作原理是利用DNS技术，通过移交域名解析权来实现安全防护。用户的请求首先发送到云端节点进行检测，如存在异常请求则进行拦截否则将请求转发至真实服务器。类似的，CDN也有相应的功能。比较常遇到的有：创宇加速乐、云盾、百度云加速等。</p>
 <p>因此，我们主要努力的方向是找到服务器的真实IP，从而对云WAF和CDN来进行绕过。  </p>
 <h2 id="验证是否存在CND"><a href="#验证是否存在CND" class="headerlink" title="验证是否存在CND"></a>验证是否存在CND</h2><p><strong>方法1：</strong><br>使用多地ping服务，查看解析的IP地址是否为同一个IP地址，如果不唯一很大概率是使用了CDN，也可以查询多个解析的IP地址的归属来进行判断。<br>多地ping的网站有：<br><a href="http://ping.chinaz.com/" target="_blank" rel="noopener">http://ping.chinaz.com/</a><br><a href="https://ping.aizhan.com/" target="_blank" rel="noopener">https://ping.aizhan.com/</a></p>
 <p><strong>方法2:</strong><br>使用nslookup进行检测，原理和上面的方法是一样的，如果返回域名解析对应多个IP地址多半是使用了CDN。有CDN的示例：<br><img src="../img/hexo-2019-10-14-11-11-19.png" alt></p>
-<h2 id="绕过CDN查找真实IP"><a href="#绕过CDN查找真实IP" class="headerlink" title="绕过CDN查找真实IP"></a>绕过CDN查找真实IP</h2><h3 id="1-查询历史DNS记录"><a href="#1-查询历史DNS记录" class="headerlink" title="1.查询历史DNS记录"></a>1.查询历史DNS记录</h3>
+<h2 id="绕过CDN查找真实IP"><a href="#绕过CDN查找真实IP" class="headerlink" title="绕过CDN查找真实IP"></a>绕过CDN查找真实IP</h2><h3 id="1-查询历史DNS记录"><a href="#1-查询历史DNS记录" class="headerlink" title="1.查询历史DNS记录"></a>1.查询历史DNS记录</h3><p>查询域名历史DNS解析记录，可能会存在使用CDN以前的记录，相关查询网站有：<br>国内：<br><a href="https://site.ip138.com" target="_blank" rel="noopener">https://site.ip138.com</a>  ip138<br><a href="https://x.threatbook.cn" target="_blank" rel="noopener">https://x.threatbook.cn</a> 微步在线<br><a href="https://tools.ipip.net/cdn.php" target="_blank" rel="noopener">https://tools.ipip.net/cdn.php</a>  CDN查询<br>国外：<br><a href="https://securitytrails.com/" target="_blank" rel="noopener">https://securitytrails.com/</a><br>这里还会提供子域名等信息<br><img src="../img/hexo-2019-10-14-15-15-17.png" alt></p>
+<p>为避免误差，可以将所有历史IP采集下来挨个与当前域名匹配。<br><strong>优点：</strong>较为简单并且可以通用<br><strong>缺点：</strong>若是目标站点解析变更极少，CDN部署得早等情况下则适用性低  </p>
+<h3 id="2-SMTP发送邮件泄露原站IP"><a href="#2-SMTP发送邮件泄露原站IP" class="headerlink" title="2.SMTP发送邮件泄露原站IP"></a>2.SMTP发送邮件泄露原站IP</h3><p>最直接最有效的方式。大部分公用SMTP服务在发信时邮件头会带上发件者IP，这样直接导致CDN失去原本的防护意义。<br>这里用某招聘网站作为例子，在忘记密码处，填写自己的邮箱，在收件箱处查看信头  </p>
+<p><img src="../img/hexo-2019-10-14-15-55-42.png" alt>  </p>
+<p>箭头处就是发件人IP地址。获取到该地址后可以修改hosts将域名和该IP地址绑定来绕过CDN，或者通过IP:端口的方式来访问。  </p>
+<h3 id="3-查询子域名"><a href="#3-查询子域名" class="headerlink" title="3.查询子域名"></a>3.查询子域名</h3><p>一些情况下，站点管理员只把主业务部署了CDN，而在同一个服务器的子域名却没有部署CDN，通过查询或者爆破子域名，将子域名IP和目标域名相匹配，直到访问成功。</p>
+<p>这里使用的是<a href="https://github.com/lijiejie/subDomainsBrute" target="_blank" rel="noopener">https://github.com/lijiejie/subDomainsBrute</a> 的子域名爆破脚本。</p>
+<h3 id="4-网站漏洞利用"><a href="#4-网站漏洞利用" class="headerlink" title="4.网站漏洞利用"></a>4.网站漏洞利用</h3><p>1) 当目标站点存在信息泄露，例如：phpinfo页面等等。<br>2) SSRF，通过SSRF，使得服务器主动向接受平台发起连接，从而获得服务器真实IP。</p>
+<p>这些方法获取到的真实IP基本是百分百准确的。</p>
+<h3 id="5-利用国外主机解析域名"><a href="#5-利用国外主机解析域名" class="headerlink" title="5.利用国外主机解析域名"></a>5.利用国外主机解析域名</h3><p>一些CDN厂商可能只对国内发起的访问做了CDN，而针对国外的线路则没有，因此如果使用国外主机对域名发起解析可能就可以的到服务器的真实IP。</p>
+<p><strong>获取到网站的真实IP后，可直接通过IP:端口的方式进行访问，但有时站点时不允许直接通过IP发起访问的，这时候就需要修改hosts文件，将寻找到的真实IP和域名绑定在一起，此时访问目标域名就会解析到绑定的真实IP上，从而绕过CDN和云WAF的防护。</strong></p>
+
     
 
     
